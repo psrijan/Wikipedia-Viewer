@@ -1,10 +1,29 @@
-function onButtonClick() {
-	console.log("Button has been changed"); 
-	$('.search-box').css('visibility' , 'visible');
 
+var searchEnabled = false; 
+var childNumber = 1; 
+
+
+function toggleSearchEnabled() {
+	return searchEnabled == true ? false : true; 
 }
 
 
+function onButtonClick() {
+	console.log("Button has been changed"); 
+	searchEnabled = toggleSearchEnabled(); 
+	if(searchEnabled == true ) {
+		//transition to visible search 
+		$('.search-box').css('visibility' , 'visible');
+	} 
+	
+}
+
+
+/*
+What to do on text change
+if it is ENTER button then 
+initiate the search 
+*/
 function onTextChange() {
 	console.log("TEXT HAS BEEN CHANGED "); 
 
@@ -14,13 +33,20 @@ function onTextChange() {
 	}
 }
 
+/**
+initiate all wiki related calls 
+
+**/
 function initiateWikipediaSearch() {
 	console.log("WikiPedia Search started "); 
 	createContainers();
 }
 
-var childNumber = 1; 
 
+/**
+This function will create new containers to hold the 
+wiki data 
+**/
 function createContainers() {
 
 	childNumber++; 
