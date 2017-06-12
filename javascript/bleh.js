@@ -26,8 +26,8 @@ function createContainers() {
 	childNumber++; 
 	var newChild = '<div class=\"row childrow\">' + 
 		'<div class=\"row new-child-item\">' +
-			'<div class=\" col col-sm-4 \"> <h1> TOPIC </div>' + 
-			'<div class=\" col col-sm-4\"><h2> Body </h2> </div>' + 
+			'<div class=\" row child-heading \"> <h1> TOPIC </div>' + 
+			'<div class=\" row child-data\"><h2> Body </h2> </div>' + 
 		'</div>'
 
 	'</div>' ;
