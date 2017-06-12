@@ -1,0 +1,8 @@
+function onButtonClick() {
+	Console.log("Button has been changed"); 
+
+}
+
+function onTextChange() {
+	Console.log("TEXT HAS BEEN CHANGED "); 
+}
