@@ -11,9 +11,15 @@ function toggleSearchEnabled() {
 
 function onButtonClick() {
 	console.log("Button has been changed"); 
+	if(!searchEnabled) {
+		$('.search-button').animate({left: '-=100' } , 500 );
+		$('.search-box').css({visibility: 'visible'}).animate({opacity: 1} , 1000);
+	} else {
+		$('.search-button').animate({left: '+=100' } , 500 );
+		$('.search-box').animate({opacity: 0} , 1000).css({visibility: 'hidden'}); 
+	}
+
 	searchEnabled = toggleSearchEnabled(); 
-	$('.search-button').animate({left: '-=100' } , 500 );
-	$('.search-box').css('visibility' , 'visible');
 	
 }
 
