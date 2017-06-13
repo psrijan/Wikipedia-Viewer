@@ -3,6 +3,7 @@ var searchEnabled = false;
 var childNumber = 1; 
 
 
+
 function toggleSearchEnabled() {
 	return searchEnabled == true ? false : true; 
 }
@@ -11,10 +12,8 @@ function toggleSearchEnabled() {
 function onButtonClick() {
 	console.log("Button has been changed"); 
 	searchEnabled = toggleSearchEnabled(); 
-	if(searchEnabled == true ) {
-		//transition to visible search 
-		$('.search-box').css('visibility' , 'visible');
-	} 
+	$('.search-button').animate({left: '-=100' } , 500 );
+	$('.search-box').css('visibility' , 'visible');
 	
 }
 
