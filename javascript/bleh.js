@@ -3,6 +3,13 @@ var searchEnabled = false;
 var childNumber = 1; 
 var searchString=""; 
 
+var WikiSandBox = {
+	"api": "https://en.wikipedia.org/w/api.php?", 
+	"properties": "format=jsonfm&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=",
+	"site" : "https://en.wikipedia.org/?curid="
+}
+
+
 function toggleSearchEnabled() {
 	return searchEnabled == true ? false : true; 
 }
@@ -35,23 +42,42 @@ function onTextChange() {
 	}
 }
 
+
 /**
 initiate all wiki related calls 
 **/
 function initiateWikipediaSearch() {
 	console.log("WikiPedia Search started "); 
-	//captureSearchTextValue();
+	captureSearchTextValue();
 	moveSearchToTop(); 
-	//useWikiRestApi(searchString);  
+	doRestCall(searchString);
 	createContainers();
 }
+
+var dataSet; 
+function doRestCall(searchParam) {
+	console.log("Performing rest call + SERACH STRING: " + searchParam ); 
+	var completeApi = 'https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=';
+	var enddStr = '&callback=?';
+	var searchUrl = completeApi +searchParam + enddStr; 
+	console.log(searchUrl);
+
+	$.getJSON(searchUrl, function(data){
+		console.log("json fetch success " + JSON.stringify(data)); 
+		dataSet = data.query.pages;
+		$.each( dataSet , function(key , value ) {
+			console.log(key + " : " + value.title ); 
+		});
+	});
+}
+
 
  /*
  Capture text value in a variable 
   */
 function captureSearchTextValue() {
-	// searchString = $(".search-box").val(); 
-	// console.log(searchString);
+	searchString = $(".search-box").val(); 
+	console.log("Search String " + searchString); 
 }
 
 
@@ -62,17 +88,7 @@ top of the view
 function moveSearchToTop() {
 	//hide current search box 
 	$(".search-black-box").animate({opacity: '0.0'} , "slow");
-
-
 }
-
-/**
-Consumes the rest api for 
-wikipedia and gets all result set 
-*/ 
-// function useWikiRestApi(var searchValue ) {
-
-// }
 
 
 /**
