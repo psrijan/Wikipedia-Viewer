@@ -1,3 +1,22 @@
+
+
+// Colors
+/*element {
+	--color-blue :#092B40 ;
+	--color-lightblue:#85DEF2;
+	--color-water: #52A5D9;
+	--color-sky: #5BB5D9;
+	--color-orange: #D96F32;
+}*/
+
+html {
+    height: 100%;
+}
+
+body {
+	background-color: #092B40;
+}
+
 .search-box {
 	visibility: hidden; 
 	opacity: 0;
@@ -25,14 +44,49 @@
 	border-radius: 10px; 
 }
 
-.container {
-	background: #ab0123; 
-
-}
-
 #wiki {
 	padding-left:60px;
 	font-family:lobster , Times , serif;
 	font-size: 25px; 
 	color: #990000;
 }
+
+.pretty {
+	font-family: 'Droid Sans' , Times , serif;
+	color:#990000;
+	position: relative;
+	padding-top:0px;
+	padding-left: 20px; 
+	padding-bottom: 3px;
+	margin-bottom: 5px;
+}
+
+
+div.block-link {
+	position:relative;
+	background: #6495ed;
+}
+
+div.block-link a.site-link {
+	position:absolute;
+	width:100%;
+	height: 100%;
+	top:0;
+	left:0; 
+	text-decoration: none; 
+	z-index: 10; 
+	background-color: #FFF; 
+	opacity: 0;
+	filter: alpha(opacity=1);
+}
+
+div.search-item {
+	transition: transform .2s ease-in-out; 
+}
+
+.animated {
+	animation-duration: 2s;
+}
+
+
+div.search-item:hover { transform: scale(1.05); }

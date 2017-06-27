@@ -2,6 +2,7 @@
 var searchEnabled = false; 
 var childNumber = 1; 
 var searchString=""; 
+var dataSet; // userful data inside response JSON from WIKI
 
 var WikiSandBox = {
 	"api": "https://en.wikipedia.org/w/api.php?", 
@@ -17,10 +18,13 @@ function toggleSearchEnabled() {
 
 function onButtonClick() {
 	console.log("Button has been changed"); 
+
 	if(!searchEnabled) {
+		$(".search-button").removeClass("animate").removeClass("pulse");
 		$('.search-button').animate({left: '-=100' } , 500 );
 		$('.search-box').css({visibility: 'visible'}).animate({opacity: 1} , 1000);
 	} else {
+		$(".search-button").addClass("animate").addClass("pulse");
 		$('.search-button').animate({left: '+=100' } , 500 );
 		$('.search-box').animate({opacity: 0} , 1000).css({visibility: 'hidden'}); 
 	}
@@ -53,8 +57,7 @@ function initiateWikipediaSearch() {
 	doRestCall(searchString);
 	createContainers();
 }
-
-var dataSet; 
+ 
 function doRestCall(searchParam) {
 	console.log("Performing rest call + SERACH STRING: " + searchParam ); 
 	var completeApi = 'https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=';
@@ -66,7 +69,7 @@ function doRestCall(searchParam) {
 		console.log("json fetch success " + JSON.stringify(data)); 
 		dataSet = data.query.pages;
 		$.each( dataSet , function(key , value ) {
-			console.log(key + " : " + value.title ); 
+			createContainers(value.title , value.extract , WikiSandBox.site + value.pageid); 
 		});
 	});
 }
@@ -91,21 +94,36 @@ function moveSearchToTop() {
 }
 
 
+
+
 /**
 This function will create new containers to hold the 
 wiki data 
 **/
-function createContainers() {
+function createContainers(heading , body, url ) {
+	console.log("HEADING: " + heading); 
+	console.log("BODY: " + body );
+	console.log("URL: " + url); 
 
-	childNumber++; 
-	var newChild = '<div class=\"row childrow\">' + 
-		'<div class=\"row new-child-item\">' +
-			'<div class=\" row child-heading \"> <h1> TOPIC </div>' + 
-			'<div class=\" row child-data\"><h2> Body </h2> </div>' + 
-		'</div>'
+	childNumber++;
 
-	'</div>' ;
-	var parent = document.getElementById('want-more-children'); 
-	console.log("Parent " + parent);
-	parent.insertAdjacentHTML('beforeend' , newChild); 
+	var appendBlock = "<div class='block-link search-item pretty'>";
+	appendBlock += "<h1>" + heading + " </h1> " ;  
+	appendBlock += "<p> " + body + " </p> " ;
+	appendBlock += " <a class='site-link' href='" + url + "' class = 'block-link__overlay-link'> This entire box </a>  "  ; 
+	appendBlock+= "</div>"; 
+
+	$(".container").append(appendBlock);
+
+	// var divStart  = '<div class="row childrow">' + 
+	// var 
+	// 	'<div class=\"row new-child-item\">' +
+	// 		'<h1> ' + heading + ' </h1><br/>' + 
+	// 		'<h3> ' + body+ ' </h3>' + 
+	// 	'</div>'
+
+	// '</div>' ;
+	// var parent = document.getElementById('want-more-children'); 
+	// console.log("Parent " + parent);
+	// parent.insertAdjacentHTML('beforeend' , newChild); 
 }
