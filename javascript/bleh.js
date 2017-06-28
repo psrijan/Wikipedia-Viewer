@@ -43,7 +43,17 @@ function onTextChange() {
 	var key = window.event.keyCode; 
 	if(key === 13) {
 		initiateWikipediaSearch(); 
+		hideMainSearchPanel(); 
 	}
+}
+
+
+function hideMainSearchPanel() {
+	$(".search-container").animate({opacity:0}, 1000);
+	$(".search-container").attr("disabled", true );
+	$(".search-button").attr("disabled" , true);
+	$(".search-box").attr("disabled" , true);
+	$('.search-box').animate({opacity: 0} , 1000).css({visibility: 'hidden'}); 
 }
 
 
@@ -52,8 +62,7 @@ initiate all wiki related calls
 **/
 function initiateWikipediaSearch() {
 	console.log("WikiPedia Search started "); 
-	captureSearchTextValue();
-	moveSearchToTop(); 
+	captureSearchTextValue(); 
 	doRestCall(searchString);
 	createContainers();
 }
@@ -84,17 +93,6 @@ function captureSearchTextValue() {
 }
 
 
-/*
-will move the search button and textfield to
-top of the view 
-*/
-function moveSearchToTop() {
-	//hide current search box 
-	$(".search-black-box").animate({opacity: '0.0'} , "slow");
-}
-
-
-
 
 /**
 This function will create new containers to hold the 
@@ -113,7 +111,7 @@ function createContainers(heading , body, url ) {
 	appendBlock += " <a class='site-link' href='" + url + "' class = 'block-link__overlay-link'> This entire box </a>  "  ; 
 	appendBlock+= "</div>"; 
 
-	$(".container").append(appendBlock);
+	$(".search-item-container").append(appendBlock);
 
 	// var divStart  = '<div class="row childrow">' + 
 	// var 
