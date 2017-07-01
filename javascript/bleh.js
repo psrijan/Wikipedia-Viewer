@@ -3,11 +3,22 @@ var searchEnabled = false;
 var childNumber = 1; 
 var searchString=""; 
 var dataSet; // userful data inside response JSON from WIKI
+var searchToolBarEnabled = false; 
+
 
 var WikiSandBox = {
 	"api": "https://en.wikipedia.org/w/api.php?", 
 	"properties": "format=jsonfm&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=",
 	"site" : "https://en.wikipedia.org/?curid="
+}
+
+
+function closeSearch() {
+	console.log("CLOSE LOG");
+	// removeExistingSearchItems(); 
+	// hideSearchToolBar();
+	// showMainSearchPanel();
+
 }
 
 
@@ -42,18 +53,51 @@ function onTextChange() {
 
 	var key = window.event.keyCode; 
 	if(key === 13) {
+
+		removeExistingSearchItems(); 
 		initiateWikipediaSearch(); 
-		hideMainSearchPanel(); 
+		
+		if(searchToolBarEnabled== false) {
+			hideMainSearchPanel();
+			showSearchToolBar(); 
+			searchToolBarEnabled = true;  
+		}
 	}
 }
 
+function removeExistingSearchItems(){
+	console.log("REMOVING ITEMS ")
+	$(".search-item-container").empty();
+}
+
+function showSearchToolBar(){
+	$(".toolbar").css("visibility" , "visible"); 
+	$(".toolbar").css("opacity" , "0"); 
+	$(".toolbar").animate({opacity: 1} , 1000);
+	$("#search-input").val(searchString);
+}
+
+function hideSearchToolBar(){
+	$(".toolbar").animate({opacity: 0} , 1000,function() {
+		$(".toolbar").css("visibility" , "hidden"); 
+	});
+}
+
+function showMainSearchPanel() {
+		// $(".search-container").css("visibility" , "visible");
+		// $(".search-container").css("opacity" , "0");
+		// $('.search-box').animate({opacity: 1} , 1000); 
+}
 
 function hideMainSearchPanel() {
-	$(".search-container").animate({opacity:0}, 1000);
-	$(".search-container").attr("disabled", true );
-	$(".search-button").attr("disabled" , true);
-	$(".search-box").attr("disabled" , true);
-	$('.search-box').animate({opacity: 0} , 1000).css({visibility: 'hidden'}); 
+	$(".search-container").animate({opacity:0}, 1000 , function() {
+		$(".search-container").css("visibility" , "hidden");
+	}) ;
+
+	 $(".search-button").attr("disabled" , true);
+	 $(".search-box").attr("disabled" , true);
+	 $('.search-box').animate({opacity: 0} , 1000).css({visibility: 'hidden'}); 
+
 }
 
 
@@ -64,7 +108,6 @@ function initiateWikipediaSearch() {
 	console.log("WikiPedia Search started "); 
 	captureSearchTextValue(); 
 	doRestCall(searchString);
-	createContainers();
 }
  
 function doRestCall(searchParam) {
@@ -88,7 +131,11 @@ function doRestCall(searchParam) {
  Capture text value in a variable 
   */
 function captureSearchTextValue() {
-	searchString = $(".search-box").val(); 
+	if(!searchToolBarEnabled){
+		searchString = $(".search-box").val(); 
+	} else {
+		searchString = $("#search-input").val();
+	}
 	console.log("Search String " + searchString); 
 }
 

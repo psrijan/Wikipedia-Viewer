@@ -11,16 +11,18 @@
 
 	<body>
 		<div class="container">
-			<section class="toolbar"> 
+			<section class="toolbar" style="visibility: hidden"> 
 				<span>
-					<i class = "fa fa-search fa-2x"> </i> 
 					<div class="form-group">
-	  					<input type="text" class="form-control">
-					</div>
+						<span> 
+						<p id='wiki1' data-toggle="tooltip" title="Random Wiki Search"  onclick="closeSearch()"> Search Wikepedia </p> 
+						</span>
+	  					<input type="text" class="form-control" id="search-input" onkeypress="onTextChange()" >
+	  				</div>
 				</span>
 			</section>
 
-			<sction >
+			<sction class = "search-item-section" >
 				<div class="search-item-container">
 				</div>
 			</sction>
@@ -36,7 +38,7 @@
 					</div>
 				</div>
 			</section>
-			    
+			<!--    
 			<section>
 				<div class="footer-container">
 						<div class="row row-transparent">
@@ -65,11 +67,11 @@
 
 					<div class = "footer" > 
 					    <br><br><br>
-					    <i class="fa fa-copyright"> </i> Srijan Pandey 2016
+					    <i class="fa fa-copyright"> </i> Srijan Pandey 2017
 					</div> 
 				</div>
 
-			</section>	
+			</section>	-->
 		</div>
 	</body>
 </html>

@@ -51,6 +51,18 @@ body {
 	color: #990000;
 }
 
+#wiki1 {
+	font-family:lobster , Times , serif;
+	font-size: 25px; 
+	color: #FFFF00;
+	text-align: center;
+	transition: transform .2s ease-in-out; 
+}
+
+#wiki1:hover {
+	transform: scale(.90); 
+}
+
 .pretty {
 	font-family: 'Droid Sans' , Times , serif;
 	color:#990000;
@@ -90,3 +102,20 @@ div.search-item {
 
 
 div.search-item:hover { transform: scale(1.05); }
+
+.footer-container{
+	position: relative;
+}
+
+.footer , .footer-container {
+	text-align: center;
+}
+
+.search-item-container {
+	height: 500px;
+	//background-color: #FFF;
+ }
+
+.toolbar {
+	opacity: 0;
+}
